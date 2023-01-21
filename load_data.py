@@ -79,7 +79,7 @@ def split(X,y):
     X_train, X_test, y_train, y_test= train_test_split(X,y,test_size=0.2, random_state=0)
     return X_train, X_test, y_train, y_test
 def train_model(X_train, X_test, y_train, y_test):
-    svc=LinearSVC()
+    svc=LinearSVC(dual=False, max_iter=5000, penalty='l2')
     svc.fit(X_train, y_train)
     print('Test_score: ', svc.score(X_test,y_test))
     return svc

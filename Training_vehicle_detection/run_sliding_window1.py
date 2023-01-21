@@ -7,6 +7,7 @@ import cv2
 import matplotlib.pyplot as plt
 from Training_vehicle_detection.setting import win_size
 params=load_classifier('vehicle_detect.p')
+print(params)
 def run(name, debug=False):
     img   = cv2.imread(name, cv2.IMREAD_COLOR)
     #41, 85

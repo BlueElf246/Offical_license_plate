@@ -4,7 +4,7 @@ from load_data import *
 from Training_vehicle_detection.setting import params
 import numpy as np
 import random
-name1=["./Training_vehicle_detection/dataset/cars_train1/*.jpg"]
+name1=["./Training_vehicle_detection/dataset/cars_train/*.jpg"]
 name2=["./Training_license_plate_detection/dataset/natural_images/airplane/*.jpg"]
 name2.append("./Training_license_plate_detection/dataset/natural_images/car/*.jpg")
 name2.append("./Training_license_plate_detection/dataset/natural_images/cat/*.jpg")
@@ -16,7 +16,7 @@ name2.append("./Training_license_plate_detection/dataset/natural_images/person/*
 car, non_car= load_dataset(name1, name2)
 random.shuffle(car)
 random.shuffle(non_car)
-car=car[:10000]
+# car=car[:10000]
 # non_car=non_car[:3]
 car_feature=extract_feature(car, params['color_space'], params)
 non_car_feature= extract_feature(non_car, params['color_space'], params)
