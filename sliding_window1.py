@@ -74,12 +74,15 @@ def sliding_window(img,params,scale, y_start_stop=[None, None], cell_per_step=2)
     return bbox
 def find_car_multi_scale(img,params, win_size):
     bboxes=[]
-    print('number of scale use:', len(win_size['use_scale']))
+    # print('number of scale use:', len(win_size['use_scale']))
     win_scale=win_size['use_scale']
     for x in range(11):
         if x in win_scale:
             scale_0=win_size[f'scale_{x}'][2]
-            bboxes.append(sliding_window(img, params=params, y_start_stop=[None, None], cell_per_step=2, scale=scale_0))
+            bbox=sliding_window(img, params=params, y_start_stop=[None, None], cell_per_step=2, scale=scale_0)
+            if len(bbox)==0:
+                continue
+            bboxes.append(bbox)
     bboxes= np.concatenate(bboxes)
     print(len(bboxes))
     return bboxes,non_max_suppression(np.array(bboxes),probs=None, overlapThresh=win_size['overlap_thresh'])

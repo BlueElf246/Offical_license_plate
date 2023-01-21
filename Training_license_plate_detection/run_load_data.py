@@ -16,8 +16,8 @@ name2.append("./Training_license_plate_detection/dataset/natural_images/person/*
 car, non_car= load_dataset(name1, name2)
 random.shuffle(car)
 random.shuffle(non_car)
-# car=car[:3]
-# non_car=non_car[:3]
+car=car[:500]
+# non_car=non_car[:]
 car_feature=extract_feature(car, params['color_space'], params)
 non_car_feature= extract_feature(non_car, params['color_space'], params)
 X,y= combine(car_feature, non_car_feature)

@@ -36,3 +36,5 @@ def run(name, debug=False):
 def test():
     os.chdir("/Users/datle/Desktop/Official_license_plate/Training_license_plate_detection/test_images")
     result,bbox= run('Cars1.png',debug=True)
+
+test()

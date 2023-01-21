@@ -1,4 +1,7 @@
+import glob
 import os
+import random
+
 os.chdir("/Users/datle/Desktop/Official_license_plate")
 import numpy as np
 from sliding_window1 import *
@@ -7,11 +10,11 @@ import cv2
 import matplotlib.pyplot as plt
 from Training_vehicle_detection.setting import win_size
 params=load_classifier('vehicle_detect.p')
-print(params)
 def run(name, debug=False):
     img   = cv2.imread(name, cv2.IMREAD_COLOR)
     #41, 85
     img= cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img= cv2.resize(img, (400,400))
     img1  = img.copy()
     img2  = img.copy()
     start= time.time()
@@ -35,6 +38,10 @@ def run(name, debug=False):
         cv2.waitKey(0)
     return img2, bbox_heatmap
 def test():
-    os.chdir("/Users/datle/Desktop/Official_license_plate/Training_vehicle_detection/test_images")
-    result,bbox= run('Cars71.png',debug=True)
+    os.chdir("/Users/datle/Desktop/Official_license_plate/Training_vehicle_detection")
+    l=glob.glob("./test_images/*.png")
+    random.shuffle(l)
+    for i in l:
+        result,bbox= run(i,debug=True)
+
 test()
