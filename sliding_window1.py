@@ -83,6 +83,8 @@ def find_car_multi_scale(img,params, win_size):
             if len(bbox)==0:
                 continue
             bboxes.append(bbox)
+    if len(bboxes) ==0:
+        return None,None
     bboxes= np.concatenate(bboxes)
     print(len(bboxes))
     return bboxes,non_max_suppression(np.array(bboxes),probs=None, overlapThresh=win_size['overlap_thresh'])

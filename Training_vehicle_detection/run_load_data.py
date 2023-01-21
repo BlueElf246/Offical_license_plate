@@ -13,10 +13,16 @@ name2.append("./Training_license_plate_detection/dataset/natural_images/flower/*
 name2.append("./Training_license_plate_detection/dataset/natural_images/fruit/*.jpg")
 name2.append("./Training_license_plate_detection/dataset/natural_images/motorbike/*.jpg")
 name2.append("./Training_license_plate_detection/dataset/natural_images/person/*.jpg")
+
+name2.append("./Training_license_plate_detection/dataset/non_vehicles/GTI_Far/*.png")
+name2.append("./Training_license_plate_detection/dataset/non_vehicles/GTI_Left/*.png")
+name2.append("./Training_license_plate_detection/dataset/non_vehicles/GTI_MiddleClose/*.png")
+name2.append("./Training_license_plate_detection/dataset/non_vehicles/GTI_Right/*.png")
+
 car, non_car= load_dataset(name1, name2)
 random.shuffle(car)
 random.shuffle(non_car)
-car=car[:1000]
+# car=car[:300]
 # non_car=non_car[:3]
 car_feature=extract_feature(car, params['color_space'], params)
 non_car_feature= extract_feature(non_car, params['color_space'], params)

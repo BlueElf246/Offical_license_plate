@@ -14,17 +14,18 @@ def run(name, debug=False):
     img   = cv2.imread(name, cv2.IMREAD_COLOR)
     #41, 85
     img= cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img= cv2.resize(img, (400,400))
+    # img= cv2.resize(img, (400,400))
     img1  = img.copy()
     img2  = img.copy()
     start= time.time()
     bbox, bbox_nms= find_car_multi_scale(img,params, win_size)
+    if bbox is None and bbox_nms is None:
+        return None, None
     end= time.time()
     print(f'time is: {end-start}')
     heatmap=draw_heatmap(bbox, img)
     heatmap_thresh= apply_threshhold(heatmap, thresh=win_size['thresh'])
     bbox_heatmap= get_labeled(heatmap_thresh)
-
     heatmap_thresh, heatmap= product_heat_and_label_pic(heatmap, heatmap_thresh)
     img2 = draw(img2, bbox_heatmap)
     if debug != False:
@@ -39,9 +40,8 @@ def run(name, debug=False):
     return img2, bbox_heatmap
 def test():
     os.chdir("/Users/datle/Desktop/Official_license_plate/Training_vehicle_detection")
-    l=glob.glob("./test_images/*.png")
+    l=glob.glob("./result/middle_close.jpeg")
     random.shuffle(l)
     for i in l:
         result,bbox= run(i,debug=True)
 
-test()

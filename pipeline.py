@@ -12,31 +12,44 @@ def filter_vehicle(img, bbox):
     for x in bbox:
         if (x[3]- x[1]) <30 and (x[2]- x[0]) <30:
             continue
-        imgs.append(img[x[1]+5:x[3]-5,x[0]+5:x[2]-5,:])
+        imgs.append(img[x[1]+2:x[3]-2,x[0]+2:x[2]-2,:])
     return imgs
 def filter_plate(img, bbox):
     imgs=[]
     for x in bbox:
-        if (x[3]- x[1]) <30 and (x[2]- x[0]) <30:
-            continue
-        imgs.append(img[x[1]+5:x[3]-5,x[0]+5:x[2]-5,:])
+        # if (x[3]- x[1]) <50 and (x[2]- x[0]) <50:
+        #     continue
+        imgs.append(img[x[1]+2:x[3]-2,x[0]+2:x[2]-2,:])
     return imgs
 def run():
     img_input = sorted(glob.glob("/Users/datle/Desktop/Official_license_plate/images/*.png"))
     # os.chdir("/Users/datle/Desktop/Official/image_vehicle")
+    print(img_input)
     for x,img in enumerate(img_input):
         result, bbox= detect_vehicle(img, debug=False)
+        if result is None and bbox is None:
+            continue
         imgs=filter_vehicle(result, bbox)
-        for img in imgs:
-            cv2.imwrite(f'/Users/datle/Desktop/Official_license_plate/image_vehicle/{x}.jpg', img)
+        if len(imgs)==0:
+            continue
+        for y,img in enumerate(imgs):
+            if img.shape[0]==0 or img.shape[1]==0:
+                continue
+            cv2.imwrite(f'/Users/datle/Desktop/Official_license_plate/image_vehicle/{x}_{y}.jpg', img)
 
     img_vehicle= sorted(glob.glob("/Users/datle/Desktop/Official_license_plate/image_vehicle/*.jpg"))
     for x,img in enumerate(img_vehicle):
         result, bbox= detect_plate(img, debug=False)
-        imgs=filter_vehicle(result, bbox)
+        if result is None and bbox is None:
+            continue
+        imgs=filter_plate(result, bbox)
         # os.chdir("/Users/datle/Desktop/Official/image_plate")
-        for img in imgs:
-            cv2.imwrite(f'/Users/datle/Desktop/Official_license_plate/image_plate/{x}.jpg', img)
+        if len(imgs)==0:
+            continue
+        for y,img1 in enumerate(imgs):
+            if img1.shape[0] == 0 or img1.shape[1] == 0:
+                continue
+            cv2.imwrite(f'/Users/datle/Desktop/Official_license_plate/image_plate/{x}_{y}.jpg', img1)
 
 run()
 

@@ -10,11 +10,14 @@ params=load_classifier('lp_detect.p')
 def run(name, debug=False):
     img   = cv2.imread(name, cv2.IMREAD_COLOR)
     #41, 85
+    # img= cv2.resize(img, (300,300))
     img= cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img1  = img.copy()
     img2  = img.copy()
     start= time.time()
     bbox, bbox_nms= find_car_multi_scale(img,params, win_size)
+    if bbox is None and bbox_nms is None:
+        return None, None
     end= time.time()
     print(f'time is: {end-start}')
     heatmap=draw_heatmap(bbox, img)
@@ -35,6 +38,5 @@ def run(name, debug=False):
     return img2, bbox_heatmap
 def test():
     os.chdir("/Users/datle/Desktop/Official_license_plate/Training_license_plate_detection/test_images")
-    result,bbox= run('Cars1.png',debug=True)
-
-test()
+    result,bbox= run('img.png',debug=True)
+    print(result)
