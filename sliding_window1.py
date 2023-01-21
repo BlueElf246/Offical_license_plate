@@ -7,7 +7,7 @@ import pickle
 from imutils.object_detection import  non_max_suppression
 from scipy.ndimage import label
 def load_classifier(name):
-    os.chdir("/Users/datle/Desktop/Official/model")
+    os.chdir("/Users/datle/Desktop/Official_license_plate/model")
     d= pickle.load(open(name, 'rb'))
     return d
 def sliding_window(img,params,scale, y_start_stop=[None, None], cell_per_step=2):

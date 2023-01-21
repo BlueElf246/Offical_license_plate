@@ -17,8 +17,8 @@ win_size={}
 s=[0.45, 0.611, 0.772, 0.933, 1.094, 1.255, 1.416, 1.577, 1.738, 1.899, 2.06]
 for x,y in enumerate(s):
     win_size[f'scale_{x}']=(0,1000,y)
-win_size['thresh']=20
-win_size['overlap_thresh']= 0.05
+win_size['thresh']=60
+win_size['overlap_thresh']= 0.4
 # 0.5, 1.3
-win_size['use_scale']=(6,7,8,9)
+win_size['use_scale']=(5,6,7,8,9,10)
 # 5,6,7,8,9,10

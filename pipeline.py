@@ -1,7 +1,7 @@
 import glob
 import os
 import cv2
-os.chdir("/Users/datle/Desktop/Official")
+os.chdir("/Users/datle/Desktop/Official_license_plate")
 from Training_license_plate_detection.run_sliding_window1 import run as detect_plate
 from Training_vehicle_detection.run_sliding_window1 import run as detect_vehicle
 def show(img):
@@ -22,21 +22,21 @@ def filter_plate(img, bbox):
         imgs.append(img[x[1]+5:x[3]-5,x[0]+5:x[2]-5,:])
     return imgs
 def run():
-    img_input = glob.glob("/Users/datle/Desktop/Official/images/*.png")
+    img_input = sorted(glob.glob("/Users/datle/Desktop/Official_license_plate/images/*.png"))
     # os.chdir("/Users/datle/Desktop/Official/image_vehicle")
     for x,img in enumerate(img_input):
         result, bbox= detect_vehicle(img, debug=False)
         imgs=filter_vehicle(result, bbox)
         for img in imgs:
-            cv2.imwrite(f'/Users/datle/Desktop/Official/image_vehicle/{x}.jpg', img)
+            cv2.imwrite(f'/Users/datle/Desktop/Official_license_plate/image_vehicle/{x}.jpg', img)
 
-    img_vehicle= glob.glob("/Users/datle/Desktop/Official/image_vehicle/*.jpg")
+    img_vehicle= sorted(glob.glob("/Users/datle/Desktop/Official_license_plate/image_vehicle/*.jpg"))
     for x,img in enumerate(img_vehicle):
         result, bbox= detect_plate(img, debug=False)
         imgs=filter_vehicle(result, bbox)
         # os.chdir("/Users/datle/Desktop/Official/image_plate")
         for img in imgs:
-            cv2.imwrite(f'/Users/datle/Desktop/Official/image_plate/{x}.jpg', img)
+            cv2.imwrite(f'/Users/datle/Desktop/Official_license_plate/image_plate/{x}.jpg', img)
 
 run()
 

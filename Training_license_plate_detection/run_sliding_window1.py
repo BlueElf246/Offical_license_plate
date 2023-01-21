@@ -1,5 +1,5 @@
 import os
-os.chdir("/Users/datle/Desktop/Official")
+os.chdir("/Users/datle/Desktop/Official_license_plate")
 import numpy as np
 from sliding_window1 import *
 import time
@@ -34,5 +34,5 @@ def run(name, debug=False):
         cv2.waitKey(0)
     return img2, bbox_heatmap
 def test():
-    os.chdir("/Users/datle/Desktop/Official/Training_license_plate_detection/test_images")
-    result,bbox= run('Cars0.png',debug=True)
+    os.chdir("/Users/datle/Desktop/Official_license_plate/Training_license_plate_detection/test_images")
+    result,bbox= run('Cars1.png',debug=True)

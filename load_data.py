@@ -84,7 +84,7 @@ def train_model(X_train, X_test, y_train, y_test):
     print('Test_score: ', svc.score(X_test,y_test))
     return svc
 def save_model(file, svc,sc,params,y):
-    os.chdir("/Users/datle/Desktop/Official/model")
+    os.chdir("/Users/datle/Desktop/Official_license_plate/model")
     with open(file, 'wb') as pfile:
         pickle.dump(
             {'svc': svc,
@@ -107,4 +107,4 @@ def save_model(file, svc,sc,params,y):
              'model_parameter': svc.get_params()
              },
             pfile, pickle.HIGHEST_PROTOCOL)
-    os.chdir("/Users/datle/Desktop/Official")
+    os.chdir("/Users/datle/Desktop/Official_license_plate")
