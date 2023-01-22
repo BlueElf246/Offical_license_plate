@@ -86,7 +86,6 @@ def find_car_multi_scale(img,params, win_size):
     if len(bboxes) ==0:
         return None,None
     bboxes= np.concatenate(bboxes)
-    print(len(bboxes))
     return bboxes,non_max_suppression(np.array(bboxes),probs=None, overlapThresh=win_size['overlap_thresh'])
 def draw(img,box):
     for x in box:
@@ -96,6 +95,7 @@ def draw_heatmap(bbox,img):
     img_new= np.zeros_like(img)
     for box in bbox:
         img_new[box[1]:box[3],box[0]:box[2]]+=1
+    print('threshhold: ',img_new[...,1].max())
     return img_new
 def apply_threshhold(heatmap,thresh=3):
     heatmap=np.copy(heatmap)
@@ -131,3 +131,13 @@ def product_heat_and_label_pic(heatmap, labels):
 
     return img_labels, img_heatmap
 
+def get_prediction_of_image(params,img):
+    img= cv2.resize(img,(params['size_of_pic_train'][0],params['size_of_pic_train'][1]))
+    svc= params['svc']
+    scaler=params['scaler']
+    feature = get_feature_of_image(img, orient=params['orient'], pix_per_cell=params['pix_per_cell'], cell_per_block=params['cell_per_block'],hog_fea=params['hog_feat'],
+                                     spatial_size=params['spatial_size'], spatial_fea=params['spatial_feat'],bins=params['hist_bins'], color_fea=params['hist_feat'],
+                                feature_vector=True, special=False, color_space=params['color_space'])
+    scaled_feature= scaler.transform(np.array(feature).reshape(1,-1))
+    if svc.predict(scaled_feature)==1:
+        return True

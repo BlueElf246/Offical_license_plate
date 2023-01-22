@@ -35,7 +35,7 @@ def run(name, debug=False):
         cv2.imshow('i',i)
         cv2.imshow('i1',i1)
         cv2.waitKey(0)
-    return img2, bbox_heatmap
+    return img2, bbox_heatmap, len(bbox)
 def test():
     os.chdir("/Users/datle/Desktop/Official_license_plate/Training_license_plate_detection/test_images")
     result,bbox= run('img.png',debug=True)

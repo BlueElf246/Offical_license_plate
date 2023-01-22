@@ -11,10 +11,13 @@ import matplotlib.pyplot as plt
 from Training_vehicle_detection.setting import win_size
 params=load_classifier('vehicle_detect.p')
 def run(name, debug=False):
-    img   = cv2.imread(name, cv2.IMREAD_COLOR)
+    if type(name)!=str:
+        img=name
+    else:
+        img   = cv2.imread(name, cv2.IMREAD_COLOR)
     #41, 85
     img= cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    # img= cv2.resize(img, (400,400))
+    img= cv2.resize(img, (800,400))
     img1  = img.copy()
     img2  = img.copy()
     start= time.time()
